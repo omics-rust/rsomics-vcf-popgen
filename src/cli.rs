@@ -56,6 +56,14 @@ pub enum Cmd {
         /// Input VCF file
         input: PathBuf,
     },
+    /// Weir & Cockerham FST per site between populations (vcftools --weir-fst-pop)
+    Fst {
+        /// Input VCF file
+        input: PathBuf,
+        /// Population sample-ID file (one ID per line); pass twice or more (≥2 populations)
+        #[arg(long = "pop", required = true, num_args = 1.., action = clap::ArgAction::Append)]
+        pops: Vec<PathBuf>,
+    },
 }
 
 #[cfg(test)]

@@ -6,6 +6,7 @@ use clap::Parser;
 
 use rsomics_vcf_popgen::{
     freq::{freq, print_freq},
+    fst::{fst, print_fst},
     hardy::{hardy, print_hardy},
     het::{het, print_het},
     missing::{missing_indv, missing_site, print_missing_indv, print_missing_site},
@@ -58,6 +59,13 @@ fn run(cli: cli::Cli) -> anyhow::Result<()> {
         cli::Cmd::Singleton { input } => {
             let records = singletons(&input)?;
             print_singletons(&records);
+        }
+        cli::Cmd::Fst { input, pops } => {
+            if pops.len() < 2 {
+                anyhow::bail!("FST requires at least two --pop files");
+            }
+            let summary = fst(&input, &pops)?;
+            print_fst(&summary);
         }
     }
     Ok(())

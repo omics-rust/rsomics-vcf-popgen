@@ -6,6 +6,7 @@
 #![allow(clippy::cast_precision_loss)]
 
 pub mod freq;
+pub mod fst;
 pub mod hardy;
 pub mod het;
 pub mod missing;
@@ -14,6 +15,7 @@ pub mod singleton;
 pub mod vcf;
 
 pub use freq::{FreqRecord, freq};
+pub use fst::{FstRecord, FstSummary, fst};
 pub use hardy::{HardyRecord, hardy};
 pub use het::{HetRecord, het};
 pub use missing::{MissingIndv, MissingSite, missing_indv, missing_site};
