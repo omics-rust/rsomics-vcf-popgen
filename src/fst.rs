@@ -224,7 +224,7 @@ mod tests {
     // Fixation gives Fst = 1 by every estimator.
     #[test]
     fn fixed_difference_is_one() {
-        let dir = tempfile::tempdir_in(scratch()).unwrap();
+        let dir = tempfile::tempdir().unwrap();
         let vcf = dir.path().join("f.vcf");
         std::fs::write(
             &vcf,
@@ -251,7 +251,7 @@ mod tests {
     // No between-population structure (both pops identical 0/1) → numerator ~0.
     #[test]
     fn no_structure_is_near_zero_or_negative() {
-        let dir = tempfile::tempdir_in(scratch()).unwrap();
+        let dir = tempfile::tempdir().unwrap();
         let vcf = dir.path().join("f.vcf");
         std::fs::write(
             &vcf,
@@ -267,9 +267,5 @@ mod tests {
 
         let s = fst(&vcf, &[pop1, pop2]).unwrap();
         assert!(s.records[0].fst <= 1e-9, "got {}", s.records[0].fst);
-    }
-
-    fn scratch() -> String {
-        std::env::var("TMPDIR").unwrap_or_else(|_| "/Volumes/KIOXIA/tmp".to_string())
     }
 }

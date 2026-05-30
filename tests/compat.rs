@@ -209,7 +209,7 @@ fn fst_matches_vcftools_0_1_17() {
         return;
     };
 
-    let dir = tempfile::tempdir_in(scratch()).unwrap();
+    let dir = tempfile::tempdir().unwrap();
     let d = dir.path();
     write_fst_fixture(d);
 
@@ -257,10 +257,6 @@ fn vcftools_0_1_17() -> Option<String> {
     let out = Command::new("vcftools").arg("--version").output().ok()?;
     let text = String::from_utf8_lossy(&out.stderr) + String::from_utf8_lossy(&out.stdout);
     text.contains("0.1.17").then(|| "vcftools".to_string())
-}
-
-fn scratch() -> String {
-    std::env::var("TMPDIR").unwrap_or_else(|_| "/Volumes/KIOXIA/tmp".to_string())
 }
 
 // Per-site (chrom, pos) -> Fst, with -nan/nan mapped to None.
